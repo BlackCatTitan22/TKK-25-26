@@ -1,0 +1,38 @@
+Poročilo 3. domače naloge pri predmetu TKK
+
+Avtor: Staš Horvat
+63200008
+19. oktober 2026
+
+Izbral sem programski jezik java zato, ker sem ga v zadnjem letu največ uporabljal, in se mi je glede 
+na zahevnost naloge zdela dovolj doba izbira. V imenu imam šumnik, ki sem ga nadomestil z 
+znakom '?'.
+
+Reševanja sem se lotil po manjših delih. za večino operacij sem sestavil novo funkcijo, za lažji 
+pregled in iskanje morebitnih napak. Najprej sem zapisal matriko H, iz nje sestavil G = [ I | A ]. Za ustrezno
+dolžino pri kodiranju sem besedilo dopolnil z znaki '_' do naslednjega večkratnika 5. Nato sem se sprehodil 
+po besedilu po sklopih 5 črk in jih pretvoril v željen rezulat. Za slovar sem uporabil String, v katerem se indeks
+posmezne črke preslika v 5-bitno vrednost, ki je enaka kodni besedi te črke.
+
+Za drugo podnalogo sem najprej pridobil sindrome kodnih besed in preko njih poiskal mesto morebitne 
+napake. Če se je sindrom ujemal z katerim stolpcem H, smo našli mesto napake, in ta bit obrnemo. Nato 
+dobljeno zakodirano besedilo po podobnem postopku kot pri 1. podnalogi pretvorimo v tekst. Presledke sem 
+pretvoril v znake '_'. Ker se dekodira po sklopih 5 črk, je na koncu ostal "rep" znakov '_'.
+
+Verjetnost napake posameznega bita je večja v zakodiranem besedilu 2. Dana hammingova koda ima 
+razmaknjenost 3, kar pomeni da lahko popravi največ 1 napako in zazna 2 napaki. Če se v kodni besedi 
+pojavita 2 napaki dekodirnik ne more preko sindroma določiti mesta napake. Sindrom pa ni nečiln, zato lahko 
+dekodirnik popravi napako na pravilnem mestu in dobimo 3 napačna mesta. Dekodirnik deluje v sklopih po 
+5 znakov, zato lahko ta nepravilna mesta vplivajo na 1-3 črke, odvisno od njihove razporeditve po 26-bitni 
+kodni besedi. Verjetnost napake pri prenosu p=0.02 nam da verjetnost 2 napak 
+P(n>=2) = 1 - (1-p)^31 - 31p(1-p)^30 = 0.133, sepravi bo 13.3% črk napačno dekodiranih. V drugem besedilu 
+se vidi, da je dekodiran rezultat zelo težko berliv, če sploh, zato izbrani kod ni primeren za kanal z p=0.02. 
+
+Časovna zahtevnost: O(N).
+Vse pretvorbe imajo linearno zahtevnost, potreben čas je za posamezen blok konstanten. 
+Število pretvorb oz. število blokov pa je odvisno od dolžine vhoda.
+
+Prostorska zahtevnost: O(N).
+Pomožni prostor (H, G, slovar, itd.) ima zahtevnost O(1). Bloki se procesirajo vsak posebaj, zato imajo O(1).
+Se pa vsi bloki sproti shranjujejo v en String, ki se komaj na koncu zapiše v tekstovno datoteko, zato je prostorsko
+odvisno od dolžine celotnega besedila oz. O(N).
